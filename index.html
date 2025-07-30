@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABI GROUP - Digital Innovation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --silver: #c0c0c0;
+            --white: #ffffff;
+            --dark-silver: #808080;
+            --light-silver: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #000 25%, #111 25%, #111 50%, #000 50%, #000 75%, #111 75%, #111);
+            background-size: 40px 40px;
+            animation: bgMove 4s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            filter: brightness(0) invert(0.8);
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--silver);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--silver), var(--white));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 20px;
+            height: 1.2em;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-title-slider {
+            display: flex;
+            animation: slideHorizontal 15s infinite;
+            position: relative;
+        }
+
+        .title-item {
+            min-width: 100%;
+            height: 1.2em;
+            line-height: 1.2em;
+            background: linear-gradient(45deg, var(--white), var(--silver), var(--white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+            background-size: 200% auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        @keyframes slideHorizontal {
+            0%, 18% { transform: translateX(0); }
+            20%, 38% { transform: translateX(-100%); }
+            40%, 58% { transform: translateX(-200%); }
+            60%, 78% { transform: translateX(-300%); }
+            80%, 98% { transform: translateX(-400%); }
+            100% { transform: translateX(-400%); }
+        }
+
+        @keyframes shimmer {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--silver);
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 2px solid var(--silver);
+            color: var(--white);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--silver);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            color: var(--black);
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--silver);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) translateX(0);
+            }
+            to {
+                transform: translateY(-10vh) translateX(100px);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--silver), transparent);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(192, 192, 192, 0.05);
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(192, 192, 192, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--silver);
+            box-shadow: 0 10px 30px rgba(192, 192, 192, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: linear-gradient(45deg, var(--silver), var(--white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+
+        .service-card p {
+            color: var(--silver);
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 50px;
+            background: rgba(192, 192, 192, 0.03);
+            position: relative;
+        }
+
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--light-silver);
+            margin-bottom: 30px;
+        }
+
+        /* Section Logo */
+        .section-logo {
+            display: block;
+            width: 120px;
+            height: auto;
+            margin: 60px auto 0;
+            filter: brightness(0) invert(0.75);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .section-logo:hover {
+            opacity: 0.5;
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 50px;
+            text-align: center;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(192, 192, 192, 0.1);
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            color: var(--white);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--silver);
+            background: rgba(192, 192, 192, 0.15);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--dark-silver);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            padding: 15px 50px;
+            background: transparent;
+            border: 2px solid var(--silver);
+            color: var(--white);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--silver);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .submit-btn:hover {
+            color: var(--black);
+        }
+
+        .submit-btn:hover::before {
+            left: 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+            color: var(--dark-silver);
+        }
+
+        /* Cursor Effects Container */
+        .cursor-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Spotlight Effect */
+        .spotlight {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(192, 192, 192, 0.15) 0%, rgba(192, 192, 192, 0.05) 40%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        /* Particle Trail */
+        .particle-trail {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--silver);
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 6px rgba(192, 192, 192, 0.5);
+            animation: particleFade 2s ease-out forwards;
+        }
+
+        @keyframes particleFade {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -150%) scale(0.5);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 14px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 10vw, 4rem);
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .services {
+                padding: 50px 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <!-- Cursor Effects -->
+    <div class="cursor-effects">
+        <div class="spotlight"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <img src="abi-group-logo.png" alt="ABI GROUP" class="logo">
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="particles">
+            <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
+            <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+            <div class="particle" style="left: 70%; animation-delay: 6s;"></div>
+            <div class="particle" style="left: 80%; animation-delay: 7s;"></div>
+            <div class="particle" style="left: 90%; animation-delay: 8s;"></div>
+        </div>
+        <div class="hero-content">
+            <h1>
+                <div class="hero-title-slider">
+                    <div class="title-item">The Future of Web & AI</div>
+                    <div class="title-item">Automatic Intelligence</div>
+                    <div class="title-item">Infinite Possibilities</div>
+                    <div class="title-item">Digital Innovation</div>
+                    <div class="title-item">The Future of Web & AI</div>
+                </div>
+            </h1>
+            <p>Advance Beyond Imagination</p>
+            <a href="#services" class="cta-button">Explore Services</a>
+        </div>
+        <img src="abi-logo-icon.png" alt="ABI GROUP" class="section-logo" style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);">
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Web Development</h3>
+                <p>Custom websites built with cutting-edge technologies, optimized for performance and user experience.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Web Applications</h3>
+                <p>Powerful, scalable web apps that transform your business processes and enhance productivity.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>AI Services</h3>
+                <p>Intelligent solutions powered by machine learning and artificial intelligence to automate and innovate.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <h3>System Architecture</h3>
+                <p>Robust, secure system design and implementation tailored to your specific business requirements.</p>
+            </div>
+        </div>
+        <img src="abi-logo-icon.png" alt="ABI GROUP" class="section-logo">
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <h2 class="section-title">About ABI GROUP</h2>
+            <p>We are pioneers in digital transformation, specializing in creating innovative web solutions and AI-powered systems. Our team combines technical expertise with creative vision to deliver exceptional results.</p>
+            <p>From responsive websites to complex AI integrations, we forge the digital tools that drive your business forward into the future.</p>
+            <img src="abi-logo-icon.png" alt="ABI GROUP" class="section-logo">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <input type="text" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Tell us about your project" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+        <img src="abi-logo-icon.png" alt="ABI GROUP" class="section-logo">
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="margin-bottom: 15px; font-size: 1.1rem; color: var(--silver);">Transforming Ideas Into Reality</p>
+        <p>&copy; 2025 ABI GROUP. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic particles
+        const particlesContainer = document.querySelector('.particles');
+        const particleCount = 20;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Nav background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+                nav.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.9)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        });
+
+        // Add hover effect to service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(192, 192, 192, 0.1) 0%, rgba(192, 192, 192, 0.05) 50%, transparent 100%)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'rgba(192, 192, 192, 0.05)';
+            });
+        });
+        // Cursor effects
+        const spotlight = document.querySelector('.spotlight');
+        const cursorEffects = document.querySelector('.cursor-effects');
+        let mouseX = 0;
+        let mouseY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let isMoving = false;
+        let lastParticleTime = 0;
+
+        // Smooth spotlight movement
+        function animateSpotlight() {
+            currentX += (mouseX - currentX) * 0.1;
+            currentY += (mouseY - currentY) * 0.1;
+            
+            spotlight.style.left = currentX + 'px';
+            spotlight.style.top = currentY + 'px';
+            
+            requestAnimationFrame(animateSpotlight);
+        }
+        animateSpotlight();
+
+        // Create particle trail
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle-trail';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            
+            // Randomize particle properties
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            // Random drift direction
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 50 + 50;
+            const endX = x + Math.cos(angle) * distance;
+            const endY = y + Math.sin(angle) * distance - 100;
+            
+            particle.style.setProperty('--endX', endX + 'px');
+            particle.style.setProperty('--endY', endY + 'px');
+            
+            cursorEffects.appendChild(particle);
+            
+            // Remove particle after animation
+            setTimeout(() => particle.remove(), 2000);
+        }
+
+        // Mouse movement handler
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Show spotlight on movement
+            if (!isMoving) {
+                spotlight.style.opacity = '1';
+                isMoving = true;
+            }
+            
+            // Create particles with throttling
+            const currentTime = Date.now();
+            if (currentTime - lastParticleTime > 50) {
+                createParticle(e.clientX, e.clientY);
+                lastParticleTime = currentTime;
+            }
+        });
+
+        // Hide spotlight when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            spotlight.style.opacity = '0';
+            isMoving = false;
+        });
+
+        // Show spotlight when mouse enters
+        document.addEventListener('mouseenter', () => {
+            spotlight.style.opacity = '1';
+            isMoving = true;
+        });
+
+        // Update particle animation with custom end position
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleFade {
+                0% {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translate(calc(var(--endX) - 50%), calc(var(--endY) - 50%)) scale(0.3);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
