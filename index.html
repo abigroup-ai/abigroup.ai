@@ -714,11 +714,9 @@
                 });
                 
                 // Since no-cors mode doesn't return response, we assume success
-                submitBtn.textContent = 'MESSAGE SENT!';
+                submitBtn.textContent = 'MESSAGE SENT';
                 submitBtn.style.background = '#c0c0c0';
                 submitBtn.style.color = '#000000';
-                formStatus.textContent = 'Thank you! We\'ll get back to you soon.';
-                formStatus.style.color = '#4CAF50';
                 
                 // Reset form
                 e.target.reset();
@@ -729,12 +727,12 @@
                     submitBtn.textContent = 'SEND MESSAGE';
                     submitBtn.style.background = 'transparent';
                     submitBtn.style.color = '#ffffff';
-                }, 3000);
+                }, 2200);
                 
             } catch (error) {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'SEND MESSAGE';
-                formStatus.textContent = 'Oops! Something went wrong. Please try again.';
+                formStatus.textContent = 'Something went wrong. Please try again.';
                 formStatus.style.color = '#f44336';
                 console.error('Form submission error:', error);
             }
