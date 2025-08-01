@@ -200,9 +200,13 @@
         letter-spacing: 1px;
     }
     
-    /* Hide hero logo on mobile */
+    /* Hero logo on mobile */
     .hero .section-logo {
-        display: none;
+    width: clamp(80px, 20vw, 120px); /* Responsive width */
+    margin-top: clamp(40px, 8vw, 60px);
+    display: block; /* Force display */
+}
+        
     }
     
     /* Services section */
