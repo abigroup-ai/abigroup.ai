@@ -130,37 +130,86 @@
 }
 
 /* Mobile Navigation */
+/* Mobile - Horizontal menu below logo */
 @media (max-width: 768px) {
+    /* Hide hamburger completely */
     .menu-toggle {
-        display: flex;
+        display: none !important;
     }
     
+    /* Fixed nav with stacked layout */
     nav {
-        padding: 15px 20px;
+        padding: 10px 15px;
+        position: fixed;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
     }
-
+    
+    .nav-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .logo {
+        height: 35px;
+        margin: 0 auto;
+    }
+    
+    /* Horizontal menu below logo */
+    .nav-links {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        background: transparent !important;
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 20px;
+        font-size: 14px;
+        padding: 5px 0;
+        transform: none !important;
+        right: auto !important;
+    }
+    
+    /* Adjust hero to account for taller nav */
+    .hero {
+        padding-top: 120px; /* Space for logo + menu */
+        height: 100vh;
+    }
+    
+    /* Resize hero elements */
     .hero h1 {
-        font-size: clamp(2rem, 10vw, 3rem);
+        font-size: 2rem;
+        height: 2.4rem;
+        margin-bottom: 15px;
     }
-
+    
+    .title-item {
+        font-size: 2rem;
+        height: 2.4rem;
+        line-height: 2.4rem;
+    }
+    
     .hero p {
         font-size: 1rem;
-    }
-    
-    .hero .section-logo {
-        bottom: 20% !important;
-        width: 120px !important;
+        margin-bottom: 25px;
     }
     
     .cta-button {
-        padding: 12px 30px;
-        font-size: 14px;
+        padding: 10px 25px;
+        font-size: 13px;
+        letter-spacing: 1px;
     }
-
+    
+    /* Hide hero logo on mobile */
+    .hero .section-logo {
+        display: none;
+    }
+    
+    /* Services section */
     .services {
         padding: 50px 20px;
     }
-
+    
     .section-title {
         font-size: 1.8rem;
     }
@@ -172,6 +221,18 @@
     
     .service-card {
         padding: 30px 20px;
+    }
+    
+    .service-icon {
+        font-size: 2.5rem;
+    }
+    
+    .service-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .service-card p {
+        font-size: 0.9rem;
     }
     
     .about {
@@ -199,22 +260,32 @@
     .cursor-effects {
         display: none;
     }
-    
+}
+
+/* Very small phones - update this too */
+@media (max-width: 480px) {
     .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.95);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: right 0.3s ease;
+        gap: 15px;
+        font-size: 12px;
     }
     
-    .nav-links.active {
-        right: 0;
+    .hero h1,
+    .title-item {
+        font-size: 1.75rem;
+        height: 2.1rem;
+        line-height: 2.1rem;
+    }
+    
+    .hero p {
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .logo {
+        height: 30px;
     }
 }
 
