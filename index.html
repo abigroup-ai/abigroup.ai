@@ -979,13 +979,13 @@
                 // Reset form
                 e.target.reset();
                 
-                // Reset button after 3 seconds
+                // Reset button after 1.66 seconds
                 setTimeout(() => {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'SEND MESSAGE';
                     submitBtn.style.background = 'transparent';
                     submitBtn.style.color = '#ffffff';
-                }, 2200);
+                }, 1600);
                 
             } catch (error) {
                 submitBtn.disabled = false;
