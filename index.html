@@ -964,20 +964,26 @@
                 
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data)
                 });
-                
-                // Since no-cors mode doesn't return response, we assume success
+
+                // Wait for JSON response from script
+                const result = await response.json();
+                if (result.result === 'success') {
                 submitBtn.textContent = 'MESSAGE SENT';
                 submitBtn.style.background = '#c0c0c0';
                 submitBtn.style.color = '#000000';
                 
                 // Reset form
                 e.target.reset();
+                
+                } else {
+                // Script returned error
+                throw new Error(result.error || 'Unknown error');
+        }
                 
                 // Reset button after 1.66 seconds
                 setTimeout(() => {
