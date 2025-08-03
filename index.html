@@ -680,7 +680,7 @@
             }
             100% {
                 opacity: 0;
-                transform: translate(-50%, -150%) scale(0.3);
+                transform: translate(calc(-50% + var(--drift-x, 0px)), calc(-50% + var(--drift-y, -100px))) scale(0.3);
             }
         }
         
