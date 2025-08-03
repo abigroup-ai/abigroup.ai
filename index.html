@@ -660,29 +660,6 @@
             transition: opacity 0.3s ease;
             opacity: 0;
         }
-
-        /* Particle Trail */
-        .particle-trail {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--silver);
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: 0 0 6px rgba(192, 192, 192, 0.5);
-            animation: particleFade 2s ease-out forwards;
-        }
-
-        @keyframes particleFade {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -150%) scale(0.3);
-            }
-        }
         
         /* Prevent horizontal scroll */
         html, body {
@@ -991,7 +968,6 @@
         let currentX = 0;
         let currentY = 0;
         let isMoving = false;
-        let lastParticleTime = 0;
 
         // Smooth spotlight movement
         function animateSpotlight() {
@@ -1005,24 +981,6 @@
         }
         animateSpotlight();
 
-        // Create particle trail
-        function createParticle(x, y) {
-            const particle = document.createElement('div');
-            particle.className = 'particle-trail';
-            particle.style.left = x + 'px';
-            particle.style.top = y + 'px';
-            
-            // Randomize particle properties
-            const size = Math.random() * 4 + 2;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-                        
-            cursorEffects.appendChild(particle);
-            
-            // Remove particle after animation
-            setTimeout(() => particle.remove(), 2000);
-        }
-
         // Mouse movement handler
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
@@ -1032,13 +990,6 @@
             if (!isMoving) {
                 spotlight.style.opacity = '1';
                 isMoving = true;
-            }
-            
-            // Create particles with throttling
-            const currentTime = Date.now();
-            if (currentTime - lastParticleTime > 50) {
-                createParticle(e.clientX, e.clientY);
-                lastParticleTime = currentTime;
             }
         });
 
