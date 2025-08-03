@@ -680,7 +680,7 @@
             }
             100% {
                 opacity: 0;
-                transform: translate(-50%, -150%) scale(0.5);
+                transform: translate(-50%, -150%) scale(0.3);
             }
         }
         
@@ -1020,11 +1020,12 @@
             // Random drift direction
             const angle = Math.random() * Math.PI * 2;
             const distance = Math.random() * 50 + 50;
-            const endX = x + Math.cos(angle) * distance;
-            const endY = y + Math.sin(angle) * distance - 100;
-            
-            particle.style.setProperty('--endX', endX + 'px');
-            particle.style.setProperty('--endY', endY + 'px');
+            const endX = Math.cos(angle) * distance;
+            const endY = Math.sin(angle) * distance - 100;
+
+            particle.style.animation = `particleFade 2s ease-out forwards`;
+            particle.style.setProperty('--drift-x', endX + 'px');
+            particle.style.setProperty('--drift-y', endY + 'px');
             
             cursorEffects.appendChild(particle);
             
@@ -1062,23 +1063,7 @@
             spotlight.style.opacity = '1';
             isMoving = true;
         });
-
-        // Update particle animation with custom end position
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes particleFade {
-                0% {
-                    opacity: 1;
-                    transform: translate(-50%, -50%) scale(1);
-                }
-                100% {
-                    opacity: 0;
-                    transform: translate(calc(var(--endX) - 50%), calc(var(--endY) - 50%)) scale(0.3);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-        
+       
         // Mobile menu toggle
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.querySelector('.nav-links');
